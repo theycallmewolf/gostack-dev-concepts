@@ -1,11 +1,22 @@
 const express = require('express');
-const { uuid } = require('uuidv4');
+const { v4: uuid } = require('uuid');
 
 const app = express();
 app.use(express.json());
 
 const projects = [];
 
+// middleware
+function logRequests(request, response, next) {
+	const { method, url } = request;
+	const logLabel = `[${method.toUpperCase()}] ${url}`;
+	console.log(logLabel);
+
+	return next();
+}
+app.use(logRequests);
+
+// routes
 app.get('/projects', (request, response) => {
 	const { title } = request.query;
 	const results =
