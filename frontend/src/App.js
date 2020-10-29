@@ -10,13 +10,20 @@ function App() {
 
 	useEffect(() => {
 		api.get('/projects').then(response => {
-			// console.log(response)
 			setProjects(response.data);
 		})
 	}, []);
 
-	function handleAddProject() {
-		setProjects([...projects, `Novo projeto ${Date.now()}`]);
+	async function handleAddProject() {
+		// setProjects([...projects, `Novo projeto ${Date.now()}`]);
+		const response = await api.post('/projects', {
+			title: `Novo projeto ${Date.now()}`,
+			owner: 'Lobatinni',
+		});
+
+		const project = response.data;
+		setProjects([...projects, project]);
+
 	}
 
 	return (
