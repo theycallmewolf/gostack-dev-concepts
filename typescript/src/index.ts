@@ -1,9 +1,8 @@
 import express from 'express';
+import { helloWolf } from './routes';
 
 const app = express();
 
-app.get('/', (request, response) => {
-  return response.json({ message: 'hello wolf!' });
-})
+app.get('/', helloWolf);
 
 app.listen(3333);
